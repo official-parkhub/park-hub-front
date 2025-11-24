@@ -1,0 +1,24 @@
+{
+  "name": "ParkHub - Sistema de Gerenciamento de Estacionamentos",
+  "short_name": "ParkHub",
+  "description": "Soluções de estacionamento seguras para todos",
+  "icons": [
+    {
+      "src": "/icons/pwa/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/pwa/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#4a90e2",
+  "background_color": "#f2f2f7",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait-primary"
+}
