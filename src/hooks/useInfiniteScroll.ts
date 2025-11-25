@@ -1,7 +1,6 @@
 'use client';
 
 import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
-import logger from '@/utils/logger';
 
 type UseInfiniteScrollReturn<T> = {
   items: T[];
@@ -46,7 +45,6 @@ export function useInfiniteScroll<T>(
       const newItems = await fetchFn({ skip, limit: initialLimit });
 
       if (!Array.isArray(newItems)) {
-        logger.error({ newItems }, 'fetchFn returned non-array value');
         setError('Erro: resposta inválida da API');
         return;
       }

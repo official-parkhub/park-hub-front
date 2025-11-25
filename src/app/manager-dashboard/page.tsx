@@ -10,7 +10,6 @@ import ParkingLotList from '@/components/parking/ParkingLotList';
 import { getLoginRoute } from '@/libs/EnvHelpers';
 import { getCurrentUser } from '@/services/auth/authService';
 import { listOwnedCompanies } from '@/services/company/companyService';
-import logger from '@/utils/logger';
 import { getToken } from '@/utils/tokenStorage';
 
 export default function ManagerDashboardPage() {
@@ -50,7 +49,6 @@ export default function ManagerDashboardPage() {
 
         setIsChecking(false);
       } catch (error) {
-        logger.error({ error }, 'Error verifying user profile');
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }

@@ -9,7 +9,6 @@ import {
   deleteCompanyImage,
 } from '@/services/company/companyService';
 import { normalizeImageUrl } from '@/utils/Helpers';
-import logger from '@/utils/logger';
 import { toastError, toastSuccess } from '@/utils/toast';
 
 type ImageManagerProps = {
@@ -54,7 +53,6 @@ export default function ImageManager({
         const hasPermission = await canManageCompany(companyId);
         setCanManage(hasPermission);
       } catch (error) {
-        logger.error({ error }, 'Error checking permission');
         setCanManage(false);
       } finally {
         setIsCheckingPermission(false);

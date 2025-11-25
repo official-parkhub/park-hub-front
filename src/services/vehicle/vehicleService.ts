@@ -8,7 +8,6 @@ import type { ApiError } from '@/services/auth/types';
 import { getApiUrl } from '@/libs/EnvHelpers';
 import { getCompanyById } from '@/services/company/companyService';
 import { authenticatedFetch } from '@/utils/authenticatedFetch';
-import logger from '@/utils/logger';
 
 export async function listVehicles(params?: {
   skip?: number;
@@ -285,7 +284,6 @@ export async function listActiveVehicles(params?: {
           },
         };
       } catch (error) {
-        logger.warn({ companyId, error }, 'Failed to fetch company');
         return {
           id: companyId,
           data: {

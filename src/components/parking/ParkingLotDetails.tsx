@@ -20,7 +20,6 @@ import {
 } from '@/services/company/companyService';
 import { listParkingPrices } from '@/services/company/priceService';
 import { cn } from '@/utils/cn';
-import logger from '@/utils/logger';
 import { textVariants } from '@/utils/textVariants';
 import { toastError } from '@/utils/toast';
 import { getProfileType } from '@/utils/tokenStorage';
@@ -106,9 +105,6 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
         const errorMessage = imagesData.reason?.message || 'Erro ao buscar imagens';
         setError(prev => ({ ...prev, images: errorMessage }));
         setLoading(prev => ({ ...prev, images: false }));
-        if (!imagesData.reason?.message?.includes('não encontrado')) {
-          logger.warn({ errorMessage }, 'Failed to load images');
-        }
       }
 
       if (pricesData.status === 'fulfilled') {
@@ -130,9 +126,6 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
         const errorMessage = pricesData.reason?.message || 'Erro ao buscar preços';
         setError(prev => ({ ...prev, prices: errorMessage }));
         setLoading(prev => ({ ...prev, prices: false }));
-        if (!pricesData.reason?.message?.includes('não encontrado')) {
-          logger.warn({ errorMessage }, 'Failed to load prices');
-        }
         if (
           companyData.status === 'fulfilled'
           && companyData.value?.today_parking_price
@@ -146,10 +139,6 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
       if (allPricesData.status === 'fulfilled') {
         const prices = allPricesData.value;
         setAllPrices(prices);
-      } else {
-        const errorMessage
-          = allPricesData.reason?.message || 'Erro ao buscar lista de preços';
-        logger.warn({ errorMessage }, 'Failed to load all prices');
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido';
@@ -180,7 +169,6 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
             const hasPermission = await canManageCompany(companyId);
             setCanManage(hasPermission);
           } catch (error) {
-            logger.warn({ error }, 'Failed to check management permission');
             setCanManage(false);
           } finally {
             setCheckingPermission(false);
@@ -198,8 +186,7 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
               try {
                 const hasPermission = await canManageCompany(companyId);
                 setCanManage(hasPermission);
-              } catch (error) {
-                logger.warn({ error }, 'Failed to check management permission');
+              } catch {
                 setCanManage(false);
               } finally {
                 setCheckingPermission(false);
@@ -209,13 +196,11 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
               setCanManage(false);
             }
           } catch (error) {
-            logger.warn({ error }, 'Failed to get user info');
             setIsOrganization(false);
             setCanManage(false);
           }
         }
       } catch (error) {
-        logger.warn({ error }, 'Error checking user type');
         setIsOrganization(false);
         setCanManage(false);
       }
@@ -338,9 +323,7 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
       if (updatedCompany.status === 'fulfilled') {
         setCompany(updatedCompany.value);
       }
-    } catch (error) {
-      logger.error({ error }, 'Error reloading price reference');
-    }
+    } catch {}
   };
 
   const reloadAllData = async () => {
@@ -363,9 +346,7 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
       if (updatedAllPrices.status === 'fulfilled') {
         setAllPrices(updatedAllPrices.value);
       }
-    } catch (error) {
-      logger.error({ error }, 'Error reloading all data');
-    }
+    } catch {}
   };
 
   const handlePriceCreated = () => {
@@ -449,17 +430,13 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
                   try {
                     const updatedImages = await getCompanyImages(companyId);
                     setImages(updatedImages);
-                  } catch (error) {
-                    logger.error({ error }, 'Error refreshing images');
-                  }
+                  } catch {}
                 }}
                 onImageRemoved={async () => {
                   try {
                     const updatedImages = await getCompanyImages(companyId);
                     setImages(updatedImages);
-                  } catch (error) {
-                    logger.error({ error }, 'Error refreshing images');
-                  }
+                  } catch {}
                 }}
               />
             )}

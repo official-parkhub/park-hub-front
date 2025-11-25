@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { listCompanyActiveVehicles } from '@/services/vehicle/companyVehicleService';
-import logger from '@/utils/logger';
 import ActiveVehiclesList from './ActiveVehiclesList';
 import VehicleEntranceForm from './VehicleEntranceForm';
 import VehicleExitForm from './VehicleExitForm';
@@ -38,8 +37,7 @@ export default function VehicleManagementSection({
         limit: 1,
       });
       setActiveVehiclesCount(response.total);
-    } catch (error) {
-      logger.warn({ error }, 'Failed to fetch active vehicles count');
+    } catch {
     } finally {
       setLoadingOccupancy(false);
     }

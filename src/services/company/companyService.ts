@@ -8,7 +8,6 @@ import type {
 import type { ApiError } from '@/services/auth/types';
 import { getApiUrl } from '@/libs/EnvHelpers';
 import { authenticatedFetch } from '@/utils/authenticatedFetch';
-import logger from '@/utils/logger';
 import { getToken } from '@/utils/tokenStorage';
 
 export async function listCompanies(params?: {
@@ -53,7 +52,6 @@ export async function listCompanies(params?: {
     const responseData: CompanyListResponse = await response.json();
 
     if (!responseData || !Array.isArray(responseData.data)) {
-      logger.error({ responseData }, 'API returned invalid response structure');
       throw new Error(
         'Resposta inválida da API: esperado um objeto com propriedade "data" contendo um array',
       );
@@ -115,7 +113,6 @@ export async function listOwnedCompanies(params?: {
     const responseData: CompanyListResponse = await response.json();
 
     if (!responseData || !Array.isArray(responseData.data)) {
-      logger.error({ responseData }, 'API returned invalid response structure');
       throw new Error(
         'Resposta inválida da API: esperado um objeto com propriedade "data" contendo um array',
       );

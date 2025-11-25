@@ -6,7 +6,6 @@ import Header from '@/components/layout/Header';
 import ParkingLotList from '@/components/parking/ParkingLotList';
 import { getLoginRoute } from '@/libs/EnvHelpers';
 import { getCurrentUser } from '@/services/auth/authService';
-import logger from '@/utils/logger';
 import { getToken } from '@/utils/tokenStorage';
 
 export default function HomePage() {
@@ -32,7 +31,6 @@ export default function HomePage() {
 
         setIsChecking(false);
       } catch (error) {
-        logger.error({ error }, 'Error verifying user profile');
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }

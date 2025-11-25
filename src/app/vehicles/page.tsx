@@ -13,7 +13,6 @@ import VehicleMetricsModal from '@/components/vehicle/VehicleMetricsModal';
 import { getLoginRoute } from '@/libs/EnvHelpers';
 import { getCurrentUser } from '@/services/auth/authService';
 import { deleteVehicle } from '@/services/vehicle/vehicleService';
-import logger from '@/utils/logger';
 import { toastError, toastSuccess } from '@/utils/toast';
 import { getToken } from '@/utils/tokenStorage';
 
@@ -48,7 +47,6 @@ export default function VehiclesPage() {
 
         setIsChecking(false);
       } catch (error) {
-        logger.error({ error }, 'Error verifying user profile');
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }
