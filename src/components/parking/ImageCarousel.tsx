@@ -143,10 +143,10 @@ export default function ImageCarousel({
         closeLightbox();
       } else if (e.key === 'ArrowLeft' && sortedImages.length > 1) {
         e.preventDefault();
-        setLightboxIndex((prev) => (prev === 0 ? sortedImages.length - 1 : prev - 1));
+        setLightboxIndex(prev => (prev === 0 ? sortedImages.length - 1 : prev - 1));
       } else if (e.key === 'ArrowRight' && sortedImages.length > 1) {
         e.preventDefault();
-        setLightboxIndex((prev) => (prev === sortedImages.length - 1 ? 0 : prev + 1));
+        setLightboxIndex(prev => (prev === sortedImages.length - 1 ? 0 : prev + 1));
       }
     };
 
@@ -155,7 +155,7 @@ export default function ImageCarousel({
   }, [isLightboxOpen, sortedImages.length]);
 
   const handleImageError = (imageId: string) => {
-    setImageErrors((prev) => new Set(prev).add(imageId));
+    setImageErrors(prev => new Set(prev).add(imageId));
   };
 
   if (sortedImages.length === 0) {
@@ -316,7 +316,10 @@ export default function ImageCarousel({
             aria-live="polite"
             aria-atomic="true"
           >
-            {selectedIndex + 1} /{sortedImages.length}
+            {selectedIndex + 1}
+            {' '}
+            /
+            {sortedImages.length}
           </div>
         )}
       </div>
@@ -358,7 +361,7 @@ export default function ImageCarousel({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxIndex((prev) =>
+                  setLightboxIndex(prev =>
                     prev === 0 ? sortedImages.length - 1 : prev - 1,
                   );
                 }}
@@ -385,7 +388,7 @@ export default function ImageCarousel({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxIndex((prev) =>
+                  setLightboxIndex(prev =>
                     prev === sortedImages.length - 1 ? 0 : prev + 1,
                   );
                 }}
@@ -413,7 +416,7 @@ export default function ImageCarousel({
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <div
             className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
                 e.stopPropagation();
@@ -422,29 +425,34 @@ export default function ImageCarousel({
             }}
             tabIndex={-1}
           >
-            {sortedImages[lightboxIndex] &&
-              (imageErrors.has(sortedImages[lightboxIndex].id) ? (
-                <div className="w-full h-full flex items-center justify-center bg-muted rounded-lg">
-                  <Building2
-                    className="w-32 h-32 sm:w-40 sm:h-40 text-muted-foreground/40"
-                    aria-hidden="true"
-                  />
-                  <span className="sr-only">Ícone de estacionamento</span>
-                </div>
-              ) : (
-                <img
-                  src={normalizeImageUrl(sortedImages[lightboxIndex].url) || ''}
-                  alt={`Imagem ${lightboxIndex + 1} ampliada do estacionamento ${companyName}`}
-                  className="max-w-full max-h-[90vh] object-contain"
-                  loading="lazy"
-                  onError={() => handleImageError(sortedImages[lightboxIndex]!.id)}
-                />
-              ))}
+            {sortedImages[lightboxIndex]
+              && (imageErrors.has(sortedImages[lightboxIndex].id)
+                ? (
+                    <div className="w-full h-full flex items-center justify-center bg-muted rounded-lg">
+                      <Building2
+                        className="w-32 h-32 sm:w-40 sm:h-40 text-muted-foreground/40"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Ícone de estacionamento</span>
+                    </div>
+                  )
+                : (
+                    <img
+                      src={normalizeImageUrl(sortedImages[lightboxIndex].url) || ''}
+                      alt={`Imagem ${lightboxIndex + 1} ampliada do estacionamento ${companyName}`}
+                      className="max-w-full max-h-[90vh] object-contain"
+                      loading="lazy"
+                      onError={() => handleImageError(sortedImages[lightboxIndex]!.id)}
+                    />
+                  ))}
           </div>
 
           {sortedImages.length > 1 && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded-full bg-background/80 text-sm font-medium text-foreground">
-              {lightboxIndex + 1} /{sortedImages.length}
+              {lightboxIndex + 1}
+              {' '}
+              /
+              {sortedImages.length}
             </div>
           )}
         </div>

@@ -283,7 +283,7 @@ export async function listActiveVehicles(params?: {
             address: companyData.address,
           },
         };
-      } catch (error) {
+      } catch {
         return {
           id: companyId,
           data: {

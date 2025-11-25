@@ -48,7 +48,7 @@ export default function ManagerDashboardPage() {
         }
 
         setIsChecking(false);
-      } catch (error) {
+      } catch {
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }

@@ -168,7 +168,7 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
           try {
             const hasPermission = await canManageCompany(companyId);
             setCanManage(hasPermission);
-          } catch (error) {
+          } catch {
             setCanManage(false);
           } finally {
             setCheckingPermission(false);
@@ -195,12 +195,12 @@ export default function ParkingLotDetails({ companyId }: ParkingLotDetailsProps)
               setIsOrganization(false);
               setCanManage(false);
             }
-          } catch (error) {
+          } catch {
             setIsOrganization(false);
             setCanManage(false);
           }
         }
-      } catch (error) {
+      } catch {
         setIsOrganization(false);
         setCanManage(false);
       }

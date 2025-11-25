@@ -30,7 +30,7 @@ export default function HomePage() {
         }
 
         setIsChecking(false);
-      } catch (error) {
+      } catch {
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }

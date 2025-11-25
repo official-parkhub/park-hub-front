@@ -52,7 +52,7 @@ export default function ImageManager({
 
         const hasPermission = await canManageCompany(companyId);
         setCanManage(hasPermission);
-      } catch (error) {
+      } catch {
         setCanManage(false);
       } finally {
         setIsCheckingPermission(false);

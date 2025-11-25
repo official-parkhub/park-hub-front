@@ -46,7 +46,7 @@ export default function VehiclesPage() {
         }
 
         setIsChecking(false);
-      } catch (error) {
+      } catch {
         const loginRoute = getLoginRoute();
         router.push(loginRoute);
       }
