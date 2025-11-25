@@ -827,6 +827,7 @@ export default function SignupForm({ onLoadingChange, onSuccess }: SignupFormPro
           : (
               <span>
                 Criar conta como
+                {' '}
                 {signupType === 'driver' ? 'Motorista' : 'Organização'}
               </span>
             )}
